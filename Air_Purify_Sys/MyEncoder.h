@@ -2,24 +2,28 @@
 #define encoderPinB 13  // D7
 #define encoderBtn 14   // D5
 
-// 去抖动时间
+// De-jitter time
 #define DEBOUNCE_TIME 50  
 unsigned long lastDebounceTime = 0;
 
-// 保存旋转计数, 按钮按下状态
+// Save rotation count, button press state
 volatile int encoderPosition = 0;
 volatile bool buttonPressed = false;
 
-// 编码器状态
-int lastEncoderStateA = LOW;
-int lastEncoderStateB = LOW;
+// The state of encoder pins, use HIGH to avoid the first detceting turn
+int lastEncoderStateA = HIGH;
+int lastEncoderStateB = HIGH;
 
-// 旋转方向，逆时针（左旋）为 1，顺时针（右旋）为 0，默认为 11451
+// Counterclockwise (left) is 1, Clockwise (right) is 0, default is 11451
 int EncoderRotate = 11451;
 
-// 按钮状态，默认空引脚高电平
+// Button status, default null pin high
 int lastButtonState = HIGH;
 
+// Used to increase the period for detecting the rotary encoder to enable runtime support for modeLogic
+int encodercount = 10;
+
+// Function for the Logic of DISPLAYMODE which is also represent the way machine working
 void modeLogic(){
   switch (DISPLAYMODE){
     case 0:
@@ -77,6 +81,7 @@ void modeLogic(){
   }
 }
 
+// This thread has an execution period of 1ms, so you can't assign computation tasks to this function.
 void encoderThread() {
   int currentStateA = digitalRead(encoderPinA);
   int currentStateB = digitalRead(encoderPinB);
@@ -85,22 +90,44 @@ void encoderThread() {
   if (lastEncoderStateA == LOW && currentStateA == HIGH) {
     if (currentStateB == LOW) {// 左旋
       encoderPosition--;
-      EncoderRotate = 1;
-      Serial.println("Rotated Left");
+      // EncoderRotate = 1;
+      // Serial.println("Rotated Left");
     } 
     else {// 右旋
       encoderPosition++;
-      EncoderRotate = 0;
-      Serial.println("Rotated Right");
+      // EncoderRotate = 0;
+      // Serial.println("Rotated Right");
     }
-    modeLogic(); // 根据获得的旋转方向信息，更改 LCD mode
+    //modeLogic(); // 根据获得的旋转方向信息，更改 LCD mode
   }
 
   // 更新状态
   lastEncoderStateA = currentStateA;
   lastEncoderStateB = currentStateB;
-  // 消除旋转方向
-  EncoderRotate = 11451;
+  
+}
+
+// Accumulate the encoder readings over a period of 10ms to get the result of a left or right turn, and perform the calculation task ‘modeLogic()’.
+void CheckEncoderThread(){
+  encodercount--;
+  if (encodercount<=0){
+    encodercount = 10;
+    if (encoderPosition < 0){
+      EncoderRotate = 1;
+      Serial.println("Rotated Left");
+      modeLogic();
+    }
+    if (encoderPosition > 0){
+      EncoderRotate = 0;
+      Serial.println("Rotated Right");
+      modeLogic();
+    }
+
+    // 重归 encoderPosition 为 0
+    encoderPosition = 0;
+    // 消除旋转方向判断
+    EncoderRotate = 11451;
+  }
 }
 
 void buttonThread() {

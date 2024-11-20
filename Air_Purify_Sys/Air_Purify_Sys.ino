@@ -1,36 +1,39 @@
+// v0.2
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include "ritos.h" // https://github.com/0ingchun/RITOS-lib-Arduino
 
 int DISPLAYMODE = 0;
-#include "MyLCD.h"
+#include "MyBufferLCD.h"
 #include "MyEncoder.h"
 
 // 线程任务声明
 Ritos taskLCD;
 Ritos taskEncoder;
+Ritos taskCheckEncoder; 
 Ritos taskButton;
 
 void setup() {
   Serial.begin(115200);
 
-  // 初始化引脚
+  // Initialize the pin for encoder
   pinMode(encoderPinA, INPUT_PULLUP);
   pinMode(encoderPinB, INPUT_PULLUP);
   pinMode(encoderBtn, INPUT_PULLUP);
 
-  // 初始化LCD
+  // Initialize the LCD
   lcd.init();
   lcd.backlight();
 
-  delay(200);
+  delay(50);
 
-  // 创建线程
+  // Create threads
   taskLCD.task(LCDThread);
   taskEncoder.task(encoderThread);
+  taskCheckEncoder.task(CheckEncoderThread);
   taskButton.task(buttonThread);
 }
 
 void loop() {
-  // 空，所有逻辑在线程中执行
+  // Empty, all logic is executed in the thread
 }
