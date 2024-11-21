@@ -1,6 +1,6 @@
 #include "MQ135.h"
-const int ANALOGPIN=4;
-MQ135 gasSensor = MQ135(ANALOGPIN);
+
+MQ135 gasSensor = MQ135(A0);
 void setup(){
   Serial.begin(9600);      // sets the serial port to 9600
 }

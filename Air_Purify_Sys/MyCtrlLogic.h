@@ -1,27 +1,5 @@
-#define encoderPinA 12  // D6
-#define encoderPinB 13  // D7
-#define encoderBtn 14   // D5
-
-// De-jitter time
-#define DEBOUNCE_TIME 50  
-unsigned long lastDebounceTime = 0;
-
-// Save rotation count, button press state
-volatile int encoderPosition = 0;
-volatile bool buttonPressed = false;
-
-// The state of encoder pins, use HIGH to avoid the first detceting turn
-int lastEncoderStateA = HIGH;
-int lastEncoderStateB = HIGH;
-
-// Counterclockwise (left) is 1, Clockwise (right) is 0, default is 11451
-int EncoderRotate = 11451;
-
-// Button status, default null pin high
-int lastButtonState = HIGH;
-
-// Used to increase the period for detecting the rotary encoder to enable runtime support for modeLogic
-int encodercount = 10;
+// 包括 Encoder 和 Home Button 示数读取与判断，程序防抖
+// 以及设备模式与 Encoder 旋转（EncoderRotate），Encoder 按下（buttonPressed），HomeButton 按下（homebuttonPressed）的关系 —— "modeLogic"
 
 // Function for the Logic of DISPLAYMODE which is also represent the way machine working
 void modeLogic(){
@@ -101,7 +79,7 @@ void encoderThread() {
     //modeLogic(); // 根据获得的旋转方向信息，更改 LCD mode
   }
 
-  // 更新状态
+  // 更新状态   `
   lastEncoderStateA = currentStateA;
   lastEncoderStateB = currentStateB;
   
@@ -131,14 +109,14 @@ void CheckEncoderThread(){
 }
 
 void buttonThread() {
-  int currentButtonState = digitalRead(encoderBtn);
+  int currentButtonState = digitalRead(encoderPinBtn);
 
   // 去抖检测
   if (currentButtonState != lastButtonState) {
-    lastDebounceTime = millis();
+    ButtonlastDebounceTime = millis();
   }
 
-  if ((millis() - lastDebounceTime) > DEBOUNCE_TIME) {
+  if ((millis() - ButtonlastDebounceTime) > DEBOUNCE_TIME) {
     // 按钮状态变化检测
     if (currentButtonState == LOW && !buttonPressed) {
       buttonPressed = true;
@@ -153,4 +131,29 @@ void buttonThread() {
 
   // 更新按钮状态
   lastButtonState = currentButtonState;
+}
+
+void homeBtnThread() {
+  int currentHomeBtnState = digitalRead(homeBtnPin);
+
+  // 去抖检测
+  if (currentHomeBtnState != homelastButtonState) {
+    homeBtnlastDebounceTime = millis();
+  }
+
+  if ((millis() - homeBtnlastDebounceTime) > DEBOUNCE_TIME) {
+    // 按钮状态变化检测
+    if (currentHomeBtnState == LOW && !homebuttonPressed) {
+      homebuttonPressed = true;
+      Serial.println("Home Button Pressed");
+      modeLogic();
+    } 
+    else if (currentHomeBtnState == HIGH && homebuttonPressed) {
+      homebuttonPressed = false;
+      Serial.println("Home Button Released");
+    }
+  }
+
+  // 更新按钮状态
+  homelastButtonState = currentHomeBtnState;
 }
