@@ -4,15 +4,14 @@
 
 #include "ritos.h" // https://github.com/0ingchun/RITOS-lib-Arduino
 #include "MyConfig.h"
-// #include "MyWifi.h"
-// #include "MyWifi114514.h"
+#include "MyWifi.h"
 #include "MyLCD.h"
 #include "MyCtrlLogic.h" // 我是: 唱跳Rap篮球高手
 #include "MySensors.h"
 
 // 线程任务声明
 // Ritos taskWIFI;
-// Ritos taskTimer;
+Ritos taskTimer;
 Ritos taskLCD;
 Ritos taskEncoder;
 Ritos taskCheckEncoder; 
@@ -21,8 +20,8 @@ Ritos taskHomeButton;
 
 void setup() {
   Serial.begin(115200);
-  // Initilize the mode of WiFi
-  // WiFi.mode(WIFI_STA);
+  // Initilize the WiFi
+  InitilizeWiFiNTP();
 
   // Initialize the LCD
   lcd.init();
@@ -39,8 +38,7 @@ void setup() {
   delay(100);
 
   // Create threads
-  // taskWIFI.task(WifiConnectionThread);
-  // taskTimer.task(WorldTimerThread);
+  taskTimer.task(WorldTimerThread);
   taskLCD.task(LCDThread);
   taskEncoder.task(encoderThread);
   taskCheckEncoder.task(CheckEncoderThread);
