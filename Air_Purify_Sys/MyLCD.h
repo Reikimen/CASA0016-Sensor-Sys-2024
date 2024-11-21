@@ -1,9 +1,5 @@
 // Dual buffering mechanism to minimize I2C communication time
 // The LCD is updated via LCD.setcursor () and LCD.print () only when the content changes, avoiding unnecessary I2C communication and optimizing performance.
-LiquidCrystal_I2C lcd(0x27, 20, 4);
-
-char buffer[4][21]; // 4 lines of up to 20 characters each for storage of the current display
-int LCDcount = 50;
 
 void LCDThread(){
   LCDcount--;
