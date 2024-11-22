@@ -1,6 +1,3 @@
-#include <ESP8266WiFi.h>
-#include <ezTime.h>
-
 // Wi-Fi 信息
 const char* ssid = "Reiki_Desktop";
 const char* password = "Reikimen";

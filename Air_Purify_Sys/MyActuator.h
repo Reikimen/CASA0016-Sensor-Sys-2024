@@ -1,6 +1,7 @@
+// LCD2004 and NOMS&FAN
+
 // Dual buffering mechanism to minimize I2C communication time
 // The LCD is updated via LCD.setcursor () and LCD.print () only when the content changes, avoiding unnecessary I2C communication and optimizing performance.
-
 void LCDThread(){
   LCDcount--;
   if (LCDcount <= 0){
@@ -18,63 +19,63 @@ void LCDThread(){
       // 
       // Encoder rotates to the right and does not allow further rotation after the end.
       // Encoder rotates to the left and does not allowed to rotate after the end.
-      case 1: // 向右：case 2，向左：case 1
+      case 1: // 向右：case 2，向左：case 1，按下Encoder case 13
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|TIME| |T&RH| | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 2: // 向右：case 3，向左：case 1
+      case 2: // 向右：case 3，向左：case 1，按下Encoder case 14
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|TIME| |T&RH| | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
-      case 3:  // 向右：case 6，向左：case 2
+      case 3:  // 向右：case 6，向左：case 2，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|TIME| |T&RH| | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      case 4:  // 向右：case 5，向左：case 1
+      case 4:  // 向右：case 5，向左：case 1，按下Encoder case 14
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|T&RH| | PM | | CO2|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 5:  // 向右：case 6，向左：case 4
+      case 5:  // 向右：case 6，向左：case 4，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|T&RH| | PM | | CO2|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
       
-      case 6:  // 向右：case 9，向左：case 5
+      case 6:  // 向右：case 9，向左：case 5，按下Encoder case 16
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|T&RH| | PM | | CO2|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      case 7:  // 向右：case 8，向左：case 4
+      case 7:  // 向右：case 8，向左：case 4，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "| PM | | CO2| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 8:  // 向右：case 9，向左：case 7
+      case 8:  // 向右：case 9，向左：case 7，按下Encoder case 16
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "| PM | | CO2| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
         
-      case 9:  // 向右：case 9，向左：case 8
+      case 9:  // 向右：case 9，向左：case 8，按下Encoder case 10
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "| PM | | CO2| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
@@ -82,57 +83,58 @@ void LCDThread(){
         break;
 
       // 以下为选择风扇模式 case 10 到 case 12
-      case 10:
+      // 只要在哪个界面就是什么模式，不需要二次确认，只对左右旋转和按HomeBtn有响应
+      case 10:  // 向右：case 11，向左：case 10，
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 11:
+      case 11:  // 向右：case 12，向左：case 10，
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
-      case 12:
+      case 12:  // 向右：case 12，向左：case 11，
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      // 以下为显示时间、传感器等的模式
+      // 以下为显示时间、传感器等的模式，只对HomeBtn有响应
       case 13:
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
+        strcpy(tempBuffer[1], "|Time| |Time| |Time|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
       case 14:
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
+        strcpy(tempBuffer[1], "|T&RH| |T&RH| |T&RH|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
       case 15:
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
+        strcpy(tempBuffer[1], "| PM | | PM | | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
       
       case 16:
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
+        strcpy(tempBuffer[1], "|CO2 | |CO2 | | CO2|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
-      // 竟然没有找到对应的LCD显示模式
+      // 竟然没有找到114514对应的LCD显示模式
       default:
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "   What's Up Bro?   ");
@@ -150,4 +152,13 @@ void LCDThread(){
     }
   }
 
+}
+// 风扇的模式分为，Auto：0，On: 1, Off: 2
+int FanMode = 0;
+int Fancount = 100;
+void FanThread(){
+  Fancount--;
+  if (Fancount <= 0){
+    Fancount = 100;
+  }
 }

@@ -8,51 +8,88 @@ void modeLogic(){
       if (EncoderRotate == 0) DISPLAYMODE = 1;
       else if (EncoderRotate == 1) DISPLAYMODE = 1;
       if (buttonPressed) DISPLAYMODE = 1;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 1:
       if (EncoderRotate == 0) DISPLAYMODE = 2;
       else if (EncoderRotate == 1) DISPLAYMODE = 1;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 13;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 2:
       if (EncoderRotate == 0) DISPLAYMODE = 3;
       else if (EncoderRotate == 1) DISPLAYMODE = 1;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 14;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 3:
       if (EncoderRotate == 0) DISPLAYMODE = 6;
       else if (EncoderRotate == 1) DISPLAYMODE = 2;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 15;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 4:
       if (EncoderRotate == 0) DISPLAYMODE = 5;
       else if (EncoderRotate == 1) DISPLAYMODE = 1;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 14;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 5:
       if (EncoderRotate == 0) DISPLAYMODE = 6;
       else if (EncoderRotate == 1) DISPLAYMODE = 4;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 15;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 6:
       if (EncoderRotate == 0) DISPLAYMODE = 9;
       else if (EncoderRotate == 1) DISPLAYMODE = 5;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 16;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 7:
       if (EncoderRotate == 0) DISPLAYMODE = 8;
       else if (EncoderRotate == 1) DISPLAYMODE = 4;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 15;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 8:
       if (EncoderRotate == 0) DISPLAYMODE = 9;
       else if (EncoderRotate == 1) DISPLAYMODE = 7;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 16;
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     case 9:
       if (EncoderRotate == 0) DISPLAYMODE = 9;
       else if (EncoderRotate == 1) DISPLAYMODE = 8;
-      if (buttonPressed) DISPLAYMODE = 1;
+      if (buttonPressed) DISPLAYMODE = 10;
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 10:
+      if (EncoderRotate == 0) DISPLAYMODE = 11;
+      else if (EncoderRotate == 1) DISPLAYMODE = 10;
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 11:
+      if (EncoderRotate == 0) DISPLAYMODE = 12;
+      else if (EncoderRotate == 1) DISPLAYMODE = 10;
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 12:
+      if (EncoderRotate == 0) DISPLAYMODE = 12;
+      else if (EncoderRotate == 1) DISPLAYMODE = 11;
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 13:
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 14:
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 15:
+      if (homebuttonPressed) DISPLAYMODE = 1;
+      break;
+    case 16:
+      if (homebuttonPressed) DISPLAYMODE = 1;
       break;
     default:
       break;
