@@ -1,19 +1,49 @@
 //////////////////////////////////////////////////////// Threads Time ///////////////////////////////////////////////////////
+// Change the values here to modify the frequency for every threads, except the 1kHz threads
+/* Wifi */
+const int CONSTTIMECOUNT = 1000; 
+int timecounter = CONSTTIMECOUNT; // WorldTimerThread
 
+/* Actuator */
+const int CONSTLCDCOUNT = 50; 
+const int CONSTFANCOUNT = 100; 
+int LCDcount = CONSTLCDCOUNT;
+int Fancount = CONSTFANCOUNT;
 
+/* Ctrl */
+const int CONSTENCODERCOUNT = 10;  // Used to increase the period for detecting the rotary encoder to enable runtime support for modeLogic
+int encodercount = CONSTENCODERCOUNT;
+
+/* Sensor */
+const int CONSTMQ135COUNT = 2000; 
+int MQ135count = CONSTMQ135COUNT;
+
+//////////////////////////////////////////////////////// Wi-Fi ///////////////////////////////////////////////////////
+// Wi-Fi 信息
+const char* ssid = "Reiki_Desktop";
+const char* password = "Reikimen";
+
+// 创建时区对象
+Timezone londonTZ;
+Timezone chinaTZ;
+
+String londonST;
+String londonDate;
+String londonTime;
+String chinaST;
+String chinaDate;
+String chinaTime;
 
 //////////////////////////////////////////////////////// Actuator ///////////////////////////////////////////////////////
 // LCD2004
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+LiquidCrystal_I2C lcd(0x27, 20, 4); // VDD to 5V, GND to GND, SDA to D2, SCL to D1
 
 int DISPLAYMODE = 0;
 
 char buffer[4][21]; // 4 lines of up to 20 characters each for storage of the current display
-int LCDcount = 50;
 
 // Fan & NMOS
 #define FanPin    2    // D4
-int Fancount = 100;
 
 /////////////////////////////////////////////////////// Ctrl IO ////////////////////////////////////////////////////////
 #define encoderPinA     12    // D6
@@ -42,16 +72,11 @@ int EncoderRotate = 11451;
 int lastButtonState = HIGH;
 int homelastButtonState = HIGH;
 
-// Used to increase the period for detecting the rotary encoder to enable runtime support for modeLogic
-int encodercount = 10;
-
 /////////////////////////////////////////////////////// Sensors ////////////////////////////////////////////////////////
 // MQ135
 #include "MQ135.h"
 
 MQ135 SensorMQ135 = MQ135(A0); // 传感器接到 A0 引脚
-
-int MQ135count = 2000;
 
 float co2_ppm = 114514;
 float rzero = 440;

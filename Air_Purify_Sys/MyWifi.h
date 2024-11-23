@@ -1,14 +1,3 @@
-// Wi-Fi 信息
-const char* ssid = "Reiki_Desktop";
-const char* password = "Reikimen";
-
-// 创建时区对象
-Timezone londonTZ;
-Timezone chinaTZ;
-
-// WorldTimerThread的间隔
-int timecounter = 1000;
-
 void InitilizeWiFiNTP() {
   Serial.println("");
   WiFi.mode(WIFI_STA);
@@ -36,17 +25,10 @@ void InitilizeWiFiNTP() {
   else Serial.println("Wifi is OK!");
 }
 
-String londonST;
-String londonDate;
-String londonTime;
-String chinaST;
-String chinaDate;
-String chinaTime;
-
 void WorldTimerThread() {
   timecounter--;
   if (timecounter <= 0){
-    timecounter = 1000;
+    timecounter = CONSTTIMECOUNT;
     londonST = londonTZ.dateTime("(T)");
     londonDate = londonTZ.dateTime("Y-m-d");
     londonTime = londonTZ.dateTime("H:i:s");

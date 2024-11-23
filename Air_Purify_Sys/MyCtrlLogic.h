@@ -126,7 +126,7 @@ void encoderThread() {
 void CheckEncoderThread(){
   encodercount--;
   if (encodercount<=0){
-    encodercount = 10;
+    encodercount = CONSTENCODERCOUNT;
     if (encoderPosition < 0){
       EncoderRotate = 1;
       Serial.println("Rotated Left");

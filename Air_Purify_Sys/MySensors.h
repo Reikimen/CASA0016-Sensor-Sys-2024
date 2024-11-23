@@ -36,7 +36,7 @@ float calculateGasConcentration(float rs, float rzero, float a, float b) {
 void MQ135Thread(){
   MQ135count--;
   if (MQ135count <= 0){
-    MQ135count = 2000;
+    MQ135count = CONSTMQ135COUNT;
 
     rzero = SensorMQ135.getRZero();     // 获取空气中的基准值 R₀
     rs = SensorMQ135.getResistance();  // 获取传感器瞬时电阻 Rs

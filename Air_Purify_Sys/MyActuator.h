@@ -5,7 +5,7 @@
 void LCDThread(){
   LCDcount--;
   if (LCDcount <= 0){
-    LCDcount = 50;
+    LCDcount = CONSTLCDCOUNT;
 
     char tempBuffer[4][21] = {0}; // Temporary buffer to store new content
     switch (DISPLAYMODE){
@@ -158,7 +158,7 @@ void LCDThread(){
 void FanThread(){
   Fancount--;
   if (Fancount <= 0){
-    Fancount = 100;
+    Fancount = CONSTFANCOUNT;
     switch (DISPLAYMODE){
       case 10:  // Auto
         digitalWrite(FanPin, LOW); // 风扇打开

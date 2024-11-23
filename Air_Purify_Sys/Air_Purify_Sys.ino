@@ -1,4 +1,4 @@
-// v0.3
+// v0.5
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <ESP8266WiFi.h>
@@ -53,8 +53,7 @@ void setup() {
 
   delay(100);
 
-  // Create threads
-
+  /* Create threads */
   // Threads for Interaction
   taskEncoder.task(encoderThread); 
   taskCheckEncoder.task(CheckEncoderThread);
