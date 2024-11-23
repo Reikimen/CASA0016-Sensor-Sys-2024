@@ -9,7 +9,7 @@
 
 
 // Wiring for ESP8266 NodeMCU boards: VDD to 3V3, GND to GND, SDA to D2, SCL to D1, nWAKE to D3 (or GND)
-CCS811 ccs811(0); // nWAKE on D3
+CCS811 ccs811(15); // nWAKE on D8
 
 // Wiring for Nano: VDD to 3v3, GND to GND, SDA to A4, SCL to A5, nWAKE to 13
 //CCS811 ccs811(13); 

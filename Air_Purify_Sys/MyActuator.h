@@ -155,22 +155,37 @@ void LCDThread(){
 }
 
 // 风扇的模式根据DISPLAYMODE分为，Auto：10，On: 11, Off: 12
+// 对应的 FANMODE 分别为，Auto：0，On: 1, Off: 2
+int FANMODE = 0;
+
 void FanThread(){
   Fancount--;
   if (Fancount <= 0){
     Fancount = CONSTFANCOUNT;
     switch (DISPLAYMODE){
       case 10:  // Auto
-        digitalWrite(FanPin, LOW); // 风扇打开
+        FANMODE = 0;
         break;
       case 11:  // On
-        digitalWrite(FanPin, LOW); // 风扇打开
+        FANMODE = 1;
         break;
       case 12:  // Off
+        FANMODE = 2;
+        break;
+      default:
+        break;
+    }
+    switch (FANMODE){
+      case 0:  // Auto
+        digitalWrite(FanPin, LOW); // 风扇打开
+        break;
+      case 1:  // On
+        digitalWrite(FanPin, LOW); // 风扇打开
+        break;
+      case 2:  // Off
         digitalWrite(FanPin, HIGH); // 风扇关闭
         break;
       default:
-        digitalWrite(FanPin, HIGH); // 风扇关闭
         break;
     }
   }

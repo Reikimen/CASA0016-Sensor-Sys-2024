@@ -1,17 +1,11 @@
 // v0.5
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <ESP8266WiFi.h>
-#include <ezTime.h>
-
-#include "ritos.h" // https://github.com/0ingchun/RITOS-lib-Arduino
 #include "MyConfig.h"
 #include "MyWifi.h"
 #include "MyActuator.h"
 #include "MyCtrlLogic.h" // 我是: 唱跳Rap篮球高手
 #include "MySensors.h"
 
-// 线程任务声明
+/* 线程任务声明 */
 // 用户交互线程
 Ritos taskEncoder;
 Ritos taskCheckEncoder; 
@@ -24,12 +18,16 @@ Ritos taskFan;
 Ritos taskTimer;
 // Ritos taskDHT22;
 Ritos taskMeasureMQ135;
+Ritos taskMeasureCCS881;
+
 
 void setup() {
+  // Enable Serial
   Serial.begin(115200);
+  // Enable I2C
+  Wire.begin(); 
 
   /* Initialize Threads for user interaction*/
-
   // Initialize the pin for encoder
   pinMode(encoderPinA, INPUT_PULLUP);
   pinMode(encoderPinB, INPUT_PULLUP);
@@ -37,7 +35,7 @@ void setup() {
   // Initialize the pin for HomeBtn
   pinMode(homeBtnPin, INPUT_PULLUP);
 
-  /* Initialize Threads for user interaction*/
+  /* Initialize Threads for actuators*/
   // Initialize the LCD
   lcd.init();
   lcd.backlight();
@@ -48,10 +46,9 @@ void setup() {
   /* Initialize Threads for grabbing datas*/
   // Initilize the sensors
   // dht22.begin();
+  InitilizeCCS811();
   // Initilize the WiFi
   InitilizeWiFiNTP();
-
-  delay(100);
 
   /* Create threads */
   // Threads for Interaction
@@ -66,6 +63,7 @@ void setup() {
   taskTimer.task(WorldTimerThread);
   // taskDHT22.task(DHT22Thread);
   taskMeasureMQ135.task(MQ135Thread);
+  taskMeasureCCS881.task(CCS811Thread);
 }
 
 void loop() {
