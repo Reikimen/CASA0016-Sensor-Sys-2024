@@ -23,6 +23,7 @@ Ritos taskFan;
 // 获取数据的线程
 Ritos taskTimer;
 // Ritos taskDHT22;
+Ritos taskMeasureMQ135;
 
 void setup() {
   Serial.begin(115200);
@@ -42,6 +43,7 @@ void setup() {
   lcd.backlight();
   lcd.clear();
   // Initialize the Pin of the Fan(NMOS)
+  pinMode(FanPin, OUTPUT);
 
   /* Initialize Threads for grabbing datas*/
   // Initilize the sensors
@@ -54,7 +56,7 @@ void setup() {
   // Create threads
 
   // Threads for Interaction
-  taskEncoder.task(encoderThread);
+  taskEncoder.task(encoderThread); 
   taskCheckEncoder.task(CheckEncoderThread);
   taskButton.task(buttonThread);
   taskHomeButton.task(homeBtnThread);
@@ -64,6 +66,7 @@ void setup() {
   // Threads for grab datas
   taskTimer.task(WorldTimerThread);
   // taskDHT22.task(DHT22Thread);
+  taskMeasureMQ135.task(MQ135Thread);
 }
 
 void loop() {

@@ -27,4 +27,23 @@
 
 // }
 
+// MQ135
+// 通用气体浓度计算函数 for MQ135
+float calculateGasConcentration(float rs, float rzero, float a, float b) {
+  float ratio = rs / rzero; // 计算 Rs/R0 的比例
+  return a * pow(ratio, b); // 使用公式计算浓度
+}
+void MQ135Thread(){
+  MQ135count--;
+  if (MQ135count <= 0){
+    MQ135count = 2000;
 
+    rzero = SensorMQ135.getRZero();     // 获取空气中的基准值 R₀
+    rs = SensorMQ135.getResistance();  // 获取传感器瞬时电阻 Rs
+
+    // CO2 浓度 (PPM)
+    co2_ppm = calculateGasConcentration(rs, rzero, 110.47, -2.62);
+    Serial.print("CO2 (ppm): ");
+    Serial.println(co2_ppm);
+  }
+}

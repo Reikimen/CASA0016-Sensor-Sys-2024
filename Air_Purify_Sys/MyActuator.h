@@ -108,9 +108,9 @@ void LCDThread(){
       // 以下为显示时间、传感器等的模式，只对HomeBtn有响应
       case 13:
         sprintf(tempBuffer[0], "London:%s        ", londonST.c_str());
-        sprintf(tempBuffer[1], "%s %s", londonDate.c_str(), londonTime.c_str());
+        sprintf(tempBuffer[1], "%s %s ", londonDate.c_str(), londonTime.c_str());
         sprintf(tempBuffer[2], "China :%s        ", chinaST.c_str());
-        sprintf(tempBuffer[3], "%s %s", chinaDate.c_str(), chinaTime.c_str());
+        sprintf(tempBuffer[3], "%s %s ", chinaDate.c_str(), chinaTime.c_str());
         break;
 
       case 14:
@@ -153,12 +153,25 @@ void LCDThread(){
   }
 
 }
-// 风扇的模式分为，Auto：0，On: 1, Off: 2
-int FanMode = 0;
-int Fancount = 100;
+
+// 风扇的模式根据DISPLAYMODE分为，Auto：10，On: 11, Off: 12
 void FanThread(){
   Fancount--;
   if (Fancount <= 0){
     Fancount = 100;
+    switch (DISPLAYMODE){
+      case 10:  // Auto
+        digitalWrite(FanPin, LOW); // 风扇打开
+        break;
+      case 11:  // On
+        digitalWrite(FanPin, LOW); // 风扇打开
+        break;
+      case 12:  // Off
+        digitalWrite(FanPin, HIGH); // 风扇关闭
+        break;
+      default:
+        digitalWrite(FanPin, HIGH); // 风扇关闭
+        break;
+    }
   }
 }
