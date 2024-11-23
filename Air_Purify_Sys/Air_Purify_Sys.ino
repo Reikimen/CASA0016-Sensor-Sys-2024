@@ -40,6 +40,7 @@ void setup() {
   // Initialize the LCD
   lcd.init();
   lcd.backlight();
+  lcd.clear();
   // Initialize the Pin of the Fan(NMOS)
 
   /* Initialize Threads for grabbing datas*/

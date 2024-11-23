@@ -107,10 +107,10 @@ void LCDThread(){
 
       // 以下为显示时间、传感器等的模式，只对HomeBtn有响应
       case 13:
-        strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|Time| |Time| |Time|");
-        strcpy(tempBuffer[2], "****** ****** ******");
-        strcpy(tempBuffer[3], "  <>                ");
+        sprintf(tempBuffer[0], "London:%s        ", londonST.c_str());
+        sprintf(tempBuffer[1], "%s %s", londonDate.c_str(), londonTime.c_str());
+        sprintf(tempBuffer[2], "China :%s        ", chinaST.c_str());
+        sprintf(tempBuffer[3], "%s %s", chinaDate.c_str(), chinaTime.c_str());
         break;
 
       case 14:

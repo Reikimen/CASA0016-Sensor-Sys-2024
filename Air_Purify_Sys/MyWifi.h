@@ -36,14 +36,25 @@ void InitilizeWiFiNTP() {
   else Serial.println("Wifi is OK!");
 }
 
+String londonST;
+String londonDate;
+String londonTime;
+String chinaST;
+String chinaDate;
+String chinaTime;
+
 void WorldTimerThread() {
   timecounter--;
   if (timecounter <= 0){
     timecounter = 1000;
-    String londonTime = londonTZ.dateTime("Y-m-d H:i:s (T)");
-    String chinaTime = chinaTZ.dateTime("Y-m-d H:i:s (T)");
+    londonST = londonTZ.dateTime("(T)");
+    londonDate = londonTZ.dateTime("Y-m-d");
+    londonTime = londonTZ.dateTime("H:i:s");
+    chinaST = chinaTZ.dateTime("(T)");
+    chinaDate = chinaTZ.dateTime("Y-m-d");
+    chinaTime = chinaTZ.dateTime("H:i:s");
 
-    Serial.println("London Time: " + londonTime);
-    Serial.println("China Time: " + chinaTime);
+    Serial.println("London Time: " + londonDate + " " + londonTime + " " + londonST);
+    Serial.println("China Time: " + chinaDate + " " + chinaTime + " " + londonST);
   }
 }
