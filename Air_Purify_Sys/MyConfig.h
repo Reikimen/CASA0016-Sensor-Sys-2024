@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <Wire.h>
 #include <ESP8266WiFi.h>
 #include <ezTime.h>
@@ -26,6 +27,9 @@ int encodercount = CONSTENCODERCOUNT;
 /* Sensor */
 const int CONSTMQ135COUNT = 2000; 
 int MQ135count = CONSTMQ135COUNT;
+
+const int CONSTPMS7003COUNT = 10000;
+int PMS7003count = CONSTPMS7003COUNT;
 
 //////////////////////////////////////////////////////// Wi-Fi ///////////////////////////////////////////////////////
 // Wi-Fi 信息
@@ -99,3 +103,20 @@ const int CONSTCCS811COUNT = 1000;
 int ccs811count = CONSTCCS811COUNT;
 
 uint16_t eco2, etvoc, errstat, raw;
+
+// PMS7003
+#define FRAME_LENGTH 32  // PMS7003数据帧长度
+#define FRAME_START_1 0x42
+#define FRAME_START_2 0x4D
+
+uint8_t pmsbuffer[FRAME_LENGTH];  // 数据缓冲区
+uint8_t bufferIndex = 0;       // 缓冲区索引
+bool frameReady = false;       // 标志位，表示是否有完整帧可用
+
+struct PMSData {
+  uint16_t pm1_0;
+  uint16_t pm2_5;
+  uint16_t pm10_0;
+};
+
+PMSData pmsData;

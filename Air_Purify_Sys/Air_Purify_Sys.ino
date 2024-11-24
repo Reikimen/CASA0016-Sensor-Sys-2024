@@ -19,12 +19,13 @@ Ritos taskTimer;
 // Ritos taskDHT22;
 Ritos taskMeasureMQ135;
 Ritos taskMeasureCCS881;
-// Ritos taskMeasurePMS7003;
+Ritos taskMeasurePMS7003;
 
 
 void setup() {
   // Enable Serial
   Serial.begin(9600);
+  Serial.println("Starting...");
   // Enable I2C
   Wire.begin(); 
 
@@ -65,7 +66,7 @@ void setup() {
   // taskDHT22.task(DHT22Thread);
   taskMeasureMQ135.task(MQ135Thread);
   taskMeasureCCS881.task(CCS811Thread);
-  // taskMeasurePMS7003.task(PMS7003Thread);
+  taskMeasurePMS7003.task(PMS7003Thread);
 }
 
 void loop() {

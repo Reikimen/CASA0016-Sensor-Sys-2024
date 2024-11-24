@@ -96,39 +96,84 @@ void CCS811Thread(){
 // SHT30
 
 // PMS7003
-// PMS pms(Serial);
-// PMS::DATA PMS7003data;
+// 非阻塞读取PMS7003数据
+void readPMS7003() {
+  while (Serial.available()) {
+    uint8_t byte = Serial.read();
 
-// float PM1_0 = 0;
-// float PM2_5 = 0;
-// float PM10_0 = 0;
+    // 如果缓冲区索引为0且接收到帧头第一个字节
+    if (bufferIndex == 0 && byte == FRAME_START_1) {
+      pmsbuffer[bufferIndex++] = byte;
+    }
+    // 如果缓冲区索引为1且接收到帧头第二个字节
+    else if (bufferIndex == 1 && byte == FRAME_START_2) {
+      pmsbuffer[bufferIndex++] = byte;
+    }
+    // 如果正在接收帧数据
+    else if (bufferIndex > 1 && bufferIndex < FRAME_LENGTH) {
+      pmsbuffer[bufferIndex++] = byte;
+      // 当接收到完整帧时
+      if (bufferIndex == FRAME_LENGTH) {
+        bufferIndex = 0;
+        frameReady = true;
+        break;
+      }
+    }
+    // 如果接收到的数据不符合帧头，重置缓冲区
+    else {
+      bufferIndex = 0;
+    }
+  }
+}
 
-// const int CONSTPMS7003COUNT = 30000;
-// int PMS7003count = CONSTPMS7003COUNT;
+// 解析PMS7003数据帧
+bool parsePMS7003(const uint8_t* frame, PMSData& data) {
+  // 检查帧头
+  if (frame[0] != FRAME_START_1 || frame[1] != FRAME_START_2) {
+    return false;
+  }
 
-// void PMS7003Thread(){
-//   PMS7003count--;
-//   if (PMS7003count <= 0){
-//     PMS7003count = CONSTPMS7003COUNT;
+  // 检查帧校验和
+  uint16_t checksum = 0;
+  for (int i = 0; i < FRAME_LENGTH - 2; i++) {
+    checksum += frame[i];
+  }
+  uint16_t receivedChecksum = (frame[FRAME_LENGTH - 2] << 8) | frame[FRAME_LENGTH - 1];
+  if (checksum != receivedChecksum) {
+    return false;
+  }
 
-//     if (pms.read(PMS7003data)){
-//       PM1_0 = float(PMS7003data.PM_AE_UG_1_0);
-//       PM2_5 = float(PMS7003data.PM_AE_UG_2_5);
-//       PM10_0 = float(PMS7003data.PM_AE_UG_10_0);
+  // 解析PM数据
+  data.pm1_0 = (frame[10] << 8) | frame[11];
+  data.pm2_5 = (frame[12] << 8) | frame[13];
+  data.pm10_0 = (frame[14] << 8) | frame[15];
 
-//       Serial.print("PM 1.0 (ug/m3): ");
-//       Serial.println(PM1_0);
+  return true;
+}
 
-//       Serial.print("PM 2.5 (ug/m3): ");
-//       Serial.println(PM2_5);
+void PMS7003Thread(){
+  PMS7003count--;
+  if (PMS7003count <= 0){
+    PMS7003count = CONSTPMS7003COUNT;
 
-//       Serial.print("PM 10.0 (ug/m3): ");
-//       Serial.println(PM10_0);
-//     }
-//     else {
-//       Serial.println("Sth wrong with PM7003");
-//     }
-//   }
-// }
+    // 非阻塞读取PMS7003数据
+    readPMS7003();
+    // 如果有完整帧，解析并输出
+    if (frameReady) {
+      frameReady = false;
+      if (parsePMS7003(pmsbuffer, pmsData)) { // 解析PMS7003数据帧
+        Serial.print("PM 1.0 (ug/m3): ");
+        Serial.println(pmsData.pm1_0);
+        Serial.print("PM 2.5 (ug/m3): ");
+        Serial.println(pmsData.pm2_5);
+        Serial.print("PM 10.0 (ug/m3): ");
+        Serial.println(pmsData.pm10_0);
+        Serial.println();
+      } else {
+        Serial.println("Invalid frame");
+      }
+    }
+  }
+}
 
 
