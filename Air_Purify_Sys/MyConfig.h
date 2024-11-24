@@ -4,6 +4,7 @@
 #include <LiquidCrystal_I2C.h>
 #include "MQ135.h"
 #include "ccs811.h"  // CCS811 library
+// #include "PMS.h"
 #include "ritos.h" // https://github.com/0ingchun/RITOS-lib-Arduino
 
 //////////////////////////////////////////////////////// Threads Time ///////////////////////////////////////////////////////
@@ -51,13 +52,14 @@ int DISPLAYMODE = 0;
 char buffer[4][21]; // 4 lines of up to 20 characters each for storage of the current display
 
 // Fan & NMOS
-#define FanPin    2    // D4
+// #define FanPin    2    // D4
+#define FanPin    16    // D0
 
 /////////////////////////////////////////////////////// Ctrl IO ////////////////////////////////////////////////////////
 #define encoderPinA     12    // D6
 #define encoderPinB     13    // D7
 #define encoderPinBtn   14    // D5
-#define homeBtnPin      16     // D0
+#define homeBtnPin      15    // D8
 
 // De-jitter time
 #define DEBOUNCE_TIME 30  // Used for both encoderBtn (Simplified as 'Button') and homeBtn
@@ -88,3 +90,12 @@ MQ135 SensorMQ135 = MQ135(A0); // 传感器接到 A0 引脚
 float co2_ppm = 114514;
 float rzero = 440;
 float rs = 11451;
+
+// ccs811
+// Wiring for ESP8266 NodeMCU boards: VDD to 3V3, GND to GND, SDA to D2, SCL to D1, nWAKE to D3 (or GND)
+CCS811 ccs811(0); // nWAKE on D3
+
+const int CONSTCCS811COUNT = 1000;
+int ccs811count = CONSTCCS811COUNT;
+
+uint16_t eco2, etvoc, errstat, raw;

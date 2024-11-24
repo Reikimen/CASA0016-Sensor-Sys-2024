@@ -180,12 +180,12 @@ void homeBtnThread() {
 
   if ((millis() - homeBtnlastDebounceTime) > DEBOUNCE_TIME) {
     // 按钮状态变化检测
-    if (currentHomeBtnState == LOW && !homebuttonPressed) {
+    if (currentHomeBtnState == HIGH && !homebuttonPressed) {
       homebuttonPressed = true;
       Serial.println("Home Button Pressed");
       modeLogic();
     } 
-    else if (currentHomeBtnState == HIGH && homebuttonPressed) {
+    else if (currentHomeBtnState == LOW && homebuttonPressed) {
       homebuttonPressed = false;
       Serial.println("Home Button Released");
     }

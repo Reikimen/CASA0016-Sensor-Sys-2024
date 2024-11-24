@@ -19,11 +19,12 @@ Ritos taskTimer;
 // Ritos taskDHT22;
 Ritos taskMeasureMQ135;
 Ritos taskMeasureCCS881;
+// Ritos taskMeasurePMS7003;
 
 
 void setup() {
   // Enable Serial
-  Serial.begin(115200);
+  Serial.begin(9600);
   // Enable I2C
   Wire.begin(); 
 
@@ -33,7 +34,7 @@ void setup() {
   pinMode(encoderPinB, INPUT_PULLUP);
   pinMode(encoderPinBtn, INPUT_PULLUP);
   // Initialize the pin for HomeBtn
-  pinMode(homeBtnPin, INPUT_PULLUP);
+  pinMode(homeBtnPin, INPUT);
 
   /* Initialize Threads for actuators*/
   // Initialize the LCD
@@ -64,6 +65,7 @@ void setup() {
   // taskDHT22.task(DHT22Thread);
   taskMeasureMQ135.task(MQ135Thread);
   taskMeasureCCS881.task(CCS811Thread);
+  // taskMeasurePMS7003.task(PMS7003Thread);
 }
 
 void loop() {

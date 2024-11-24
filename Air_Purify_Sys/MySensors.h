@@ -49,11 +49,6 @@ void MQ135Thread(){
 }
 
 // ccs811
-// Wiring for ESP8266 NodeMCU boards: VDD to 3V3, GND to GND, SDA to D2, SCL to D1, nWAKE to D3 (or GND)
-CCS811 ccs811(0); // nWAKE on D3
-
-const int CONSTCCS811COUNT = 1000;
-int ccs811count = CONSTCCS811COUNT;
 
 void InitilizeCCS811(){
   // Enable CCS811
@@ -70,8 +65,6 @@ void InitilizeCCS811(){
   ok= ccs811.start(CCS811_MODE_1SEC);
   if( !ok ) Serial.println("setup: CCS811 start FAILED");
 }
-
-uint16_t eco2, etvoc, errstat, raw;
 
 void CCS811Thread(){
   ccs811count--;
@@ -100,6 +93,42 @@ void CCS811Thread(){
   }
 }
 
+// SHT30
 
+// PMS7003
+// PMS pms(Serial);
+// PMS::DATA PMS7003data;
+
+// float PM1_0 = 0;
+// float PM2_5 = 0;
+// float PM10_0 = 0;
+
+// const int CONSTPMS7003COUNT = 30000;
+// int PMS7003count = CONSTPMS7003COUNT;
+
+// void PMS7003Thread(){
+//   PMS7003count--;
+//   if (PMS7003count <= 0){
+//     PMS7003count = CONSTPMS7003COUNT;
+
+//     if (pms.read(PMS7003data)){
+//       PM1_0 = float(PMS7003data.PM_AE_UG_1_0);
+//       PM2_5 = float(PMS7003data.PM_AE_UG_2_5);
+//       PM10_0 = float(PMS7003data.PM_AE_UG_10_0);
+
+//       Serial.print("PM 1.0 (ug/m3): ");
+//       Serial.println(PM1_0);
+
+//       Serial.print("PM 2.5 (ug/m3): ");
+//       Serial.println(PM2_5);
+
+//       Serial.print("PM 10.0 (ug/m3): ");
+//       Serial.println(PM10_0);
+//     }
+//     else {
+//       Serial.println("Sth wrong with PM7003");
+//     }
+//   }
+// }
 
 

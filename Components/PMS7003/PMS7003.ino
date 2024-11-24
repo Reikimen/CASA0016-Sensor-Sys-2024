@@ -1,4 +1,5 @@
 #include "PMS.h"
+#include <Wire.h>
 
 PMS pms(Serial);
 PMS::DATA data;
@@ -6,7 +7,8 @@ PMS::DATA data;
 void setup()
 {
   Serial.begin(9600);   // GPIO1, GPIO3 (TX/RX pin on ESP-12E Development Board)
-  Serial1.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
+  Wire.begin(); // 初始化 I2C
+  //Serial1.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
 }
 
 void loop()

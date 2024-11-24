@@ -42,42 +42,42 @@ void LCDThread(){
 
       case 4:  // 向右：case 5，向左：case 1，按下Encoder case 14
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|T&RH| | PM | | CO2|");
+        strcpy(tempBuffer[1], "|T&RH| | PM | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
       case 5:  // 向右：case 6，向左：case 4，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|T&RH| | PM | | CO2|");
+        strcpy(tempBuffer[1], "|T&RH| | PM | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
       
       case 6:  // 向右：case 9，向左：case 5，按下Encoder case 16
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|T&RH| | PM | | CO2|");
+        strcpy(tempBuffer[1], "|T&RH| | PM | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
       case 7:  // 向右：case 8，向左：case 4，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "| PM | | CO2| |FANs|");
+        strcpy(tempBuffer[1], "| PM | | AQI| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
       case 8:  // 向右：case 9，向左：case 7，按下Encoder case 16
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "| PM | | CO2| |FANs|");
+        strcpy(tempBuffer[1], "| PM | | AQI| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
         
       case 9:  // 向右：case 9，向左：case 8，按下Encoder case 10
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "| PM | | CO2| |FANs|");
+        strcpy(tempBuffer[1], "| PM | | AQI| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
@@ -129,7 +129,7 @@ void LCDThread(){
       
       case 16:
         strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|CO2 | |CO2 | | CO2|");
+        strcpy(tempBuffer[1], "|AQI | |AQI | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
