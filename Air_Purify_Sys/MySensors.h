@@ -28,20 +28,20 @@
 // }
 
 // MQ135
-// 通用气体浓度计算函数 for MQ135
+// General Gas Concentration Calculation Function for MQ135
 float calculateGasConcentration(float rs, float rzero, float a, float b) {
-  float ratio = rs / rzero; // 计算 Rs/R0 的比例
-  return a * pow(ratio, b); // 使用公式计算浓度
+  float ratio = rs / rzero; // Calculate the Rs/R0 ratio
+  return a * pow(ratio, b); // Calculate the concentration using the formula
 }
 void MQ135Thread(){
   MQ135count--;
   if (MQ135count <= 0){
     MQ135count = CONSTMQ135COUNT;
 
-    rzero = SensorMQ135.getRZero();     // 获取空气中的基准值 R₀
-    rs = SensorMQ135.getResistance();  // 获取传感器瞬时电阻 Rs
+    rzero = SensorMQ135.getRZero();     // Get the reference value in the air R₀
+    rs = SensorMQ135.getResistance();   // Get sensor instantaneous resistance Rs
 
-    // CO2 浓度 (PPM)
+    // CO2 concentration (PPM)
     co2_ppm = calculateGasConcentration(rs, rzero, 110.47, -2.62);
     Serial.print("CO2 (ppm): ");
     Serial.println(co2_ppm);
@@ -96,44 +96,44 @@ void CCS811Thread(){
 // SHT30
 
 // PMS7003
-// 非阻塞读取PMS7003数据
+// Non-blocking read of PMS7003 data
 void readPMS7003() {
   while (Serial.available()) {
     uint8_t byte = Serial.read();
 
-    // 如果缓冲区索引为0且接收到帧头第一个字节
+    // If the buffer index is 0 and the first byte of the frame header is received
     if (bufferIndex == 0 && byte == FRAME_START_1) {
       pmsbuffer[bufferIndex++] = byte;
     }
-    // 如果缓冲区索引为1且接收到帧头第二个字节
+    // If the buffer index is 1 and the second byte of the frame header is received
     else if (bufferIndex == 1 && byte == FRAME_START_2) {
       pmsbuffer[bufferIndex++] = byte;
     }
-    // 如果正在接收帧数据
+    // If frame data is being received
     else if (bufferIndex > 1 && bufferIndex < FRAME_LENGTH) {
       pmsbuffer[bufferIndex++] = byte;
-      // 当接收到完整帧时
+      // When a full frame is received
       if (bufferIndex == FRAME_LENGTH) {
         bufferIndex = 0;
         frameReady = true;
         break;
       }
     }
-    // 如果接收到的数据不符合帧头，重置缓冲区
+    // Reset buffer if received data does not match header
     else {
       bufferIndex = 0;
     }
   }
 }
 
-// 解析PMS7003数据帧
+// Parsing PMS7003 data frames
 bool parsePMS7003(const uint8_t* frame, PMSData& data) {
-  // 检查帧头
+  // Check the frame header
   if (frame[0] != FRAME_START_1 || frame[1] != FRAME_START_2) {
     return false;
   }
 
-  // 检查帧校验和
+  // Check frame checksum
   uint16_t checksum = 0;
   for (int i = 0; i < FRAME_LENGTH - 2; i++) {
     checksum += frame[i];
@@ -143,7 +143,7 @@ bool parsePMS7003(const uint8_t* frame, PMSData& data) {
     return false;
   }
 
-  // 解析PM数据
+  // Parsing PM data
   data.pm1_0 = (frame[10] << 8) | frame[11];
   data.pm2_5 = (frame[12] << 8) | frame[13];
   data.pm10_0 = (frame[14] << 8) | frame[15];
@@ -156,12 +156,12 @@ void PMS7003Thread(){
   if (PMS7003count <= 0){
     PMS7003count = CONSTPMS7003COUNT;
 
-    // 非阻塞读取PMS7003数据
+    // Non-blocking read of PMS7003 data
     readPMS7003();
-    // 如果有完整帧，解析并输出
+    // If there is a full frame, parse and output
     if (frameReady) {
       frameReady = false;
-      if (parsePMS7003(pmsbuffer, pmsData)) { // 解析PMS7003数据帧
+      if (parsePMS7003(pmsbuffer, pmsData)) { // Parsing PMS7003 data frames
         Serial.print("PM 1.0 (ug/m3): ");
         Serial.println(pmsData.pm1_0);
         Serial.print("PM 2.5 (ug/m3): ");

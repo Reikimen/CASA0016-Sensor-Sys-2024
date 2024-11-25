@@ -5,7 +5,7 @@
 #include <LiquidCrystal_I2C.h>
 #include "MQ135.h"
 #include "ccs811.h"  // CCS811 library
-// #include "PMS.h"
+// #include "PMS.h" // Don't need it anymore, for the fuctions insides has delay or sleep that would block the whole sys
 #include "ritos.h" // https://github.com/0ingchun/RITOS-lib-Arduino
 
 //////////////////////////////////////////////////////// Threads Time ///////////////////////////////////////////////////////
@@ -32,11 +32,11 @@ const int CONSTPMS7003COUNT = 10000;
 int PMS7003count = CONSTPMS7003COUNT;
 
 //////////////////////////////////////////////////////// Wi-Fi ///////////////////////////////////////////////////////
-// Wi-Fi 信息
+// Wi-Fi info
 const char* ssid = "Reiki_Desktop";
 const char* password = "Reikimen";
 
-// 创建时区对象
+// Create a time zone object
 Timezone londonTZ;
 Timezone chinaTZ;
 
@@ -89,7 +89,7 @@ int homelastButtonState = HIGH;
 /////////////////////////////////////////////////////// Sensors ////////////////////////////////////////////////////////
 // MQ135
 
-MQ135 SensorMQ135 = MQ135(A0); // 传感器接到 A0 引脚
+MQ135 SensorMQ135 = MQ135(A0); // Sensor connected to pin A0
 
 float co2_ppm = 114514;
 float rzero = 440;
@@ -105,13 +105,13 @@ int ccs811count = CONSTCCS811COUNT;
 uint16_t eco2, etvoc, errstat, raw;
 
 // PMS7003
-#define FRAME_LENGTH 32  // PMS7003数据帧长度
+#define FRAME_LENGTH 32  // PMS7003 data frame length
 #define FRAME_START_1 0x42
 #define FRAME_START_2 0x4D
 
-uint8_t pmsbuffer[FRAME_LENGTH];  // 数据缓冲区
-uint8_t bufferIndex = 0;       // 缓冲区索引
-bool frameReady = false;       // 标志位，表示是否有完整帧可用
+uint8_t pmsbuffer[FRAME_LENGTH];  // Data buffer
+uint8_t bufferIndex = 0;          // Buffer index
+bool frameReady = false;          // Flag bit indicating if a full frame is available
 
 struct PMSData {
   uint16_t pm1_0;

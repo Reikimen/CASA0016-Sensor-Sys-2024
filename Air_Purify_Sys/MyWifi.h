@@ -2,23 +2,23 @@ void InitilizeWiFiNTP() {
   Serial.println("");
   WiFi.mode(WIFI_STA);
   if (WiFi.status() != WL_CONNECTED) {
-    // 连接WIFI
+    // Start Connecting Wifi
     WiFi.begin(ssid, password);
     Serial.println("Start Connecting Wifi!");
     
-    // 持续等待连接WiFi，连接成功后跳出死循环
+    // Continuously waiting to connect to WiFi and jumping out of the dead loop when the connection is successful
     while (WiFi.status() != WL_CONNECTED) {
       Serial.println("Connecting Wifi...");
       delay(200);
     }
 
-    // 初始化 NTP
+    // initizal NTP
     Serial.println("Synchronizing time with NTP...");
-    // setDebug(INFO);       // 打印详细调试信息，可注释掉
-    waitForSync();        // 同步时间, 似乎当NTP连接时会阻断其他程序运行
+    // setDebug(INFO);        // Prints detailed debugging information, which can be commented out.
+    waitForSync();            // Synchronise time, seems to block other programs when NTP is connected.
     Serial.println("Time synchronized!");
 
-    // 设置时区
+    // Set time zone
     londonTZ.setLocation("Europe/London");
     chinaTZ.setLocation("Asia/Shanghai");
   }

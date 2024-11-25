@@ -1,5 +1,5 @@
-// 包括 Encoder 和 Home Button 示数读取与判断，程序防抖
-// 以及设备模式与 Encoder 旋转（EncoderRotate），Encoder 按下（buttonPressed），HomeButton 按下（homebuttonPressed）的关系 —— "modeLogic"
+// Including Encoder and Home Button display reading and judgement, and programmed stabilisation.
+// And the relationship of device mode to Encoder Rotate, Encoder Pressed, Home Button Pressed - ‘modeLogic’.
 
 // Function for the Logic of DISPLAYMODE which is also represent the way machine working
 void modeLogic(){
@@ -101,22 +101,22 @@ void encoderThread() {
   int currentStateA = digitalRead(encoderPinA);
   int currentStateB = digitalRead(encoderPinB);
 
-  // 检测旋转，Serial回传，改变 LCD mode
+  // Detect rotation, Serial back, change LCD mode
   if (lastEncoderStateA == LOW && currentStateA == HIGH) {
-    if (currentStateB == LOW) {// 左旋
+    if (currentStateB == LOW) {// turn left
       encoderPosition--;
       // EncoderRotate = 1;
       // Serial.println("Rotated Left");
     } 
-    else {// 右旋
+    else {// turn right
       encoderPosition++;
       // EncoderRotate = 0;
       // Serial.println("Rotated Right");
     }
-    //modeLogic(); // 根据获得的旋转方向信息，更改 LCD mode
+    //modeLogic(); // Change the LCD mode according to the direction of rotation information obtained.
   }
 
-  // 更新状态   `
+  // refresh the state
   lastEncoderStateA = currentStateA;
   lastEncoderStateB = currentStateB;
   
@@ -138,9 +138,9 @@ void CheckEncoderThread(){
       modeLogic();
     }
 
-    // 重归 encoderPosition 为 0
+    // Renormalise encoderPosition to 0
     encoderPosition = 0;
-    // 消除旋转方向判断
+    // Eliminate direction-of-rotation judgements
     EncoderRotate = 11451;
   }
 }
@@ -148,13 +148,13 @@ void CheckEncoderThread(){
 void buttonThread() {
   int currentButtonState = digitalRead(encoderPinBtn);
 
-  // 去抖检测
+  // De-jittering detection
   if (currentButtonState != lastButtonState) {
     ButtonlastDebounceTime = millis();
   }
 
   if ((millis() - ButtonlastDebounceTime) > DEBOUNCE_TIME) {
-    // 按钮状态变化检测
+    // Button state change detection
     if (currentButtonState == LOW && !buttonPressed) {
       buttonPressed = true;
       Serial.println("Button Pressed");
@@ -166,20 +166,20 @@ void buttonThread() {
     }
   }
 
-  // 更新按钮状态
+  // Update button status
   lastButtonState = currentButtonState;
 }
 
 void homeBtnThread() {
   int currentHomeBtnState = digitalRead(homeBtnPin);
 
-  // 去抖检测
+  // De-jittering detection
   if (currentHomeBtnState != homelastButtonState) {
     homeBtnlastDebounceTime = millis();
   }
 
   if ((millis() - homeBtnlastDebounceTime) > DEBOUNCE_TIME) {
-    // 按钮状态变化检测
+    // Button state change detection
     if (currentHomeBtnState == HIGH && !homebuttonPressed) {
       homebuttonPressed = true;
       Serial.println("Home Button Pressed");
@@ -191,6 +191,6 @@ void homeBtnThread() {
     }
   }
 
-  // 更新按钮状态
+  // Update button status
   homelastButtonState = currentHomeBtnState;
 }

@@ -1,20 +1,20 @@
-// v0.5
+// v0.6
 #include "MyConfig.h"
 #include "MyWifi.h"
 #include "MyActuator.h"
-#include "MyCtrlLogic.h" // 我是: 唱跳Rap篮球高手
+#include "MyCtrlLogic.h" // I'm talented at: "唱跳Rap篮球"
 #include "MySensors.h"
 
-/* 线程任务声明 */
-// 用户交互线程
+/* Thread task declaration */
+// User Interaction Threads
 Ritos taskEncoder;
 Ritos taskCheckEncoder; 
 Ritos taskButton;
 Ritos taskHomeButton;
-// 执行器线程
+// Actuator threads
 Ritos taskLCD;
 Ritos taskFan;
-// 获取数据的线程
+// Threads that fetch data
 Ritos taskTimer;
 // Ritos taskDHT22;
 Ritos taskMeasureMQ135;

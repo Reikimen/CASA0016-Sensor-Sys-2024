@@ -19,93 +19,93 @@ void LCDThread(){
       // 
       // Encoder rotates to the right and does not allow further rotation after the end.
       // Encoder rotates to the left and does not allowed to rotate after the end.
-      case 1: // 向右：case 2，向左：case 1，按下Encoder case 13
+      case 1: // Right：case 2，left：case 1，按下Encoder case 13
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|TIME| |T&RH| | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 2: // 向右：case 3，向左：case 1，按下Encoder case 14
+      case 2: // Right：case 3，left：case 1，按下Encoder case 14
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|TIME| |T&RH| | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
-      case 3:  // 向右：case 6，向左：case 2，按下Encoder case 15
+      case 3:  // Right：case 6，left：case 2，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|TIME| |T&RH| | PM |");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      case 4:  // 向右：case 5，向左：case 1，按下Encoder case 14
+      case 4:  // Right：case 5，left：case 1，按下Encoder case 14
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|T&RH| | PM | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 5:  // 向右：case 6，向左：case 4，按下Encoder case 15
+      case 5:  // Right：case 6，left：case 4，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|T&RH| | PM | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
       
-      case 6:  // 向右：case 9，向左：case 5，按下Encoder case 16
+      case 6:  // Right：case 9，left：case 5，按下Encoder case 16
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|T&RH| | PM | | AQI|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      case 7:  // 向右：case 8，向左：case 4，按下Encoder case 15
+      case 7:  // Right：case 8，left：case 4，按下Encoder case 15
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "| PM | | AQI| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 8:  // 向右：case 9，向左：case 7，按下Encoder case 16
+      case 8:  // Right：case 9，left：case 7，按下Encoder case 16
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "| PM | | AQI| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
         
-      case 9:  // 向右：case 9，向左：case 8，按下Encoder case 10
+      case 9:  // Right：case 9，left：case 8，按下Encoder case 10
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "| PM | | AQI| |FANs|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      // 以下为选择风扇模式 case 10 到 case 12
-      // 只要在哪个界面就是什么模式，不需要二次确认，只对左右旋转和按HomeBtn有响应
-      case 10:  // 向右：case 11，向左：case 10，
+      // The following fan modes are selected from case 10 to case 12.
+      // The mode is whatever the screen is in, no need to double check, only responds to rotate left/right and press HomeBtn.
+      case 10:  // Right：case 11，left：case 10，
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "  <>                ");
         break;
 
-      case 11:  // 向右：case 12，向左：case 10，
+      case 11:  // Right：case 12，left：case 10，
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
-      case 12:  // 向右：case 12，向左：case 11，
+      case 12:  // Right：case 12，left：case 11，
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "|AUTO| | ON | | OFF|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "                <>  ");
         break;
 
-      // 以下为显示时间、传感器等的模式，只对HomeBtn有响应
+      // The following modes display time, sensors, etc. and respond only to HomeBtn
       case 13:
         sprintf(tempBuffer[0], "London:%s        ", londonST.c_str());
         sprintf(tempBuffer[1], "%s %s ", londonDate.c_str(), londonTime.c_str());
@@ -114,27 +114,27 @@ void LCDThread(){
         break;
 
       case 14:
-        strcpy(tempBuffer[0], "****** ****** ******");
+        strcpy(tempBuffer[0], "Temp and Humidty    ");
         strcpy(tempBuffer[1], "|T&RH| |T&RH| |T&RH|");
         strcpy(tempBuffer[2], "****** ****** ******");
         strcpy(tempBuffer[3], "         <>         ");
         break;
 
       case 15:
-        strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "| PM | | PM | | PM |");
-        strcpy(tempBuffer[2], "****** ****** ******");
-        strcpy(tempBuffer[3], "                <>  ");
+        strcpy(tempBuffer[0], "PM Levels Overview  ");
+        snprintf(tempBuffer[1], sizeof(tempBuffer[1]), "PM1.0: %4d ug/m3    ", pmsData.pm1_0);
+        snprintf(tempBuffer[2], sizeof(tempBuffer[2]), "PM2.5: %4d ug/m3    ", pmsData.pm2_5);
+        snprintf(tempBuffer[3], sizeof(tempBuffer[3]), "PM10 : %4d ug/m3    ", pmsData.pm10_0);
         break;
       
       case 16:
-        strcpy(tempBuffer[0], "****** ****** ******");
-        strcpy(tempBuffer[1], "|AQI | |AQI | | AQI|");
-        strcpy(tempBuffer[2], "****** ****** ******");
-        strcpy(tempBuffer[3], "         <>         ");
+        strcpy(tempBuffer[0], "Air Qualify Overview");
+        snprintf(tempBuffer[1], sizeof(tempBuffer[1]), "CO2:  %4d ppm      ", (int)co2_ppm);
+        snprintf(tempBuffer[2], sizeof(tempBuffer[2]), "eCO2: %4d ppm      ", eco2);
+        snprintf(tempBuffer[3], sizeof(tempBuffer[3]), "eTVOC:%4d ppb      ", etvoc);
         break;
 
-      // 竟然没有找到114514对应的LCD显示模式
+      // Surprisingly, I didn't find the LCD display mode corresponding to 114514
       default:
         strcpy(tempBuffer[0], "****** ****** ******");
         strcpy(tempBuffer[1], "   What's Up Bro?   ");
@@ -142,20 +142,20 @@ void LCDThread(){
         strcpy(tempBuffer[3], "                    ");
         break;
     }
-    // 比较缓冲区内容，如果有变化，则更新对应的行
+    // Compare the contents of the buffer and update the corresponding line if it has changed
     for (int i = 0; i < 4; i++) {
       if (strcmp(buffer[i], tempBuffer[i]) != 0) {
-        lcd.setCursor(0, i); // 设置光标到第 i 行
-        lcd.print(tempBuffer[i]); // 打印新的内容
-        strcpy(buffer[i], tempBuffer[i]); // 更新缓存
+        lcd.setCursor(0, i); // Set the cursor to line i
+        lcd.print(tempBuffer[i]); // Print new content
+        strcpy(buffer[i], tempBuffer[i]); // Update the cache
       }
     }
   }
 
 }
 
-// 风扇的模式根据DISPLAYMODE分为，Auto：10，On: 11, Off: 12
-// 对应的 FANMODE 分别为，Auto：0，On: 1, Off: 2
+// The fan modes are classified according to DISPLAYMODE, Auto: 10, On: 11, Off: 12.
+// The corresponding FANMODE is Auto: 0, On: 1, Off: 2.
 int FANMODE = 0;
 
 void FanThread(){
