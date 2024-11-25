@@ -115,9 +115,9 @@ void LCDThread(){
 
       case 14:
         strcpy(tempBuffer[0], "Temp and Humidty    ");
-        strcpy(tempBuffer[1], "|T&RH| |T&RH| |T&RH|");
-        strcpy(tempBuffer[2], "****** ****** ******");
-        strcpy(tempBuffer[3], "         <>         ");
+        snprintf(tempBuffer[1], sizeof(tempBuffer[1]), "cTemp:    %4.2f *C   ", sht30_cTemp);
+        snprintf(tempBuffer[2], sizeof(tempBuffer[2]), "fTemp:    %4.2f *F   ", sht30_fTemp);
+        snprintf(tempBuffer[3], sizeof(tempBuffer[3]), "Humidity: %4.2f %%RH    ", sht30_humidity);
         break;
 
       case 15:
@@ -156,8 +156,6 @@ void LCDThread(){
 
 // The fan modes are classified according to DISPLAYMODE, Auto: 10, On: 11, Off: 12.
 // The corresponding FANMODE is Auto: 0, On: 1, Off: 2.
-int FANMODE = 0;
-
 void FanThread(){
   Fancount--;
   if (Fancount <= 0){

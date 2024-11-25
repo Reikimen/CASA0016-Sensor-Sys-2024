@@ -20,6 +20,7 @@ Ritos taskTimer;
 Ritos taskMeasureMQ135;
 Ritos taskMeasureCCS881;
 Ritos taskMeasurePMS7003;
+Ritos taskMeasureSHT30;
 
 
 void setup() {
@@ -67,6 +68,7 @@ void setup() {
   taskMeasureMQ135.task(MQ135Thread);
   taskMeasureCCS881.task(CCS811Thread);
   taskMeasurePMS7003.task(PMS7003Thread);
+  taskMeasureSHT30.task(SHT30Thread);
 }
 
 void loop() {

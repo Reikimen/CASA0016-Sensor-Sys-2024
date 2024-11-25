@@ -31,6 +31,9 @@ int MQ135count = CONSTMQ135COUNT;
 const int CONSTPMS7003COUNT = 10000;
 int PMS7003count = CONSTPMS7003COUNT;
 
+const int CONSTSHT30COUNT = 2000;
+int sht30count = CONSTSHT30COUNT;
+
 //////////////////////////////////////////////////////// Wi-Fi ///////////////////////////////////////////////////////
 // Wi-Fi info
 // const char* ssid = "Reiki_Desktop";
@@ -60,6 +63,10 @@ char buffer[4][21]; // 4 lines of up to 20 characters each for storage of the cu
 // Fan & NMOS
 // #define FanPin    2    // D4
 #define FanPin    16    // D0
+
+// The fan modes are classified according to DISPLAYMODE, Auto: 10, On: 11, Off: 12.
+// The corresponding FANMODE is Auto: 0, On: 1, Off: 2.
+int FANMODE = 0;
 
 /////////////////////////////////////////////////////// Ctrl IO ////////////////////////////////////////////////////////
 #define encoderPinA     12    // D6
@@ -122,3 +129,12 @@ struct PMSData {
 };
 
 PMSData pmsData;
+
+// SHT30传感器的I2C地址
+#define Addr_SHT30 0x44
+
+// 存储SHT30测量数据的变量
+uint8_t sht30_data[6];
+float sht30_cTemp;     // 摄氏温度
+float sht30_fTemp;     // 华氏温度
+float sht30_humidity;  // 相对湿度

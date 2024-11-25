@@ -1,11 +1,115 @@
-# Sensor Sys
-<img src="images/Yunli.png"  width="64" />
+# Readme
+<img src="images/Yunli.png"  width="32" /> Dankao Chen
 
-Dankao Chen
+# Intro
 
-## Common Pin Assignment Table for ESP8266 Development Boards
+# Repo Structure
 
-Below is a table of commonly used pin assignments for ESP8266 development boards (such as NodeMCU or similar), including their functions, GPIO numbers, and key considerations:
+```plaintext
+- Sensor-Sys/
+            - Air_Purify_Sys/
+                        - Air_Purify_Sys.ino
+                        - MyActuator.h
+                        - MyConfig.h
+                        - MyCtrlLogic.h
+                        - MySensors.h
+                        - MyWifi.h
+            - Components/
+                        - ccs811basic/...
+                        - DHT22/...
+                        - EasyBtn/...
+                        - ESP8266_GetTime/...
+                        - I2C_address_search/...
+                        - LCD2004/...
+                        - ...
+            - Datasheets/
+                        - EC11-1370808.pdf
+                        - SNS-MQ135.pdf
+                        - ...
+            - images/
+                        - Yunli.png
+                        - ESP8266-Pins.png
+                        - ...
+            - README.md
+```
+
+The repo contains the following components:
+- Air_Purify_Sys/
+  - The main program folder, opened with an Arduino and burned into the ESP8266
+- Components/
+  - Components folder, which contains how to use each component, some of the improved non-blocking runtime programs, and programs for checking circuit connections (e.g., items for checking the connection of I2C devices: I2C_address_search)
+- Datasheets/
+  - Datasheets for some of the components on which the non-blocking functions of the sensors can be edited.
+- images/
+  - For storing images in the README
+- README.md
+
+
+## Main program folder: Air_Purify_Sys/
+Here is an overview of what each file in the main program does:
+### MyConfig.h
+- Contains the system configuration and global variable definitions:
+  - Define thread timer periods (e.g., periods for Wi-Fi, sensor, display updates).
+  - Configure Wi-Fi parameters (SSID and password) and NTP parameters (time zone).
+  - Configure sensor and actuator interfaces (e.g., MQ135, CCS811, PMS7003, LCD2004).
+  - Configure pins for user interaction (e.g. Encoder and Home Button)
+- Provide hardware-related initialization settings:
+  - De-jitter time constants for knobs and buttons.
+  - Pin mapping and initialization for fans and displays.
+
+### MyCtrlLogic.h
+- Implemented control logic:
+  - Operation logic based on knob rotation, button press, and Home button.
+  - Defines `DISPLAYMODE` state switching rules to control the device's mode of operation.
+- Provides input processing threads:
+  - Implement knob direction detection (left/right rotation).
+  - De-jitter detection of button state change.
+  - Real-time response mechanism to user input.
+
+### MySensors.h
+- Realizes data reading and processing of various sensors:
+  - **MQ135**: Get CO₂ concentration by the calculation formula provided in the datasheet.
+  - **CCS811**: Get eCO₂ and eTVOC data, support initialization and error handling.
+  - **PMS7003**: Non-blocking reading of particulate matter concentration data, supports frame parsing and calibration.
+  - **SHT30**: non-blocking reading of temperature and humidity, supports frame parsing and checksum.
+- Provides sensor-specific threads:
+  - Ensures that each sensor's data is updated regularly without blocking the rest of the system.
+
+### MyWifi.h
+- Implement Wi-Fi connection and time synchronization functions:
+  - Wi-Fi connection status checking and reconnection mechanism.
+  - NTP time synchronization function to get time in London and China.
+- Provide `WorldTimerThread` thread:
+  - Periodic output of date and time in current time zone.
+
+### MyActuator.h
+- Involves LCD display and fan control:
+  - **LCD display**: implements double buffering mechanism to reduce I2C communication time and improve display refresh efficiency (20 Hz).
+  - **FAN CONTROL**: set the fan operating mode (auto, on or off) based on `DISPLAYMODE`.
+- Defines the content logic of the display mode:
+  - Generate display content based on `DISPLAYMODE`, e.g. time, sensor data, air quality.
+
+### Air_Purify_Sys.ino
+- Main program file, integrates modules and coordinates system operation:
+  - Initialize all modules (Wi-Fi, sensors, control logic, display, etc.).
+  - Defines the main loop and schedules the threads to run.
+  - May include system error handling and overall state management.
+
+### Collaboration between files
+- Modules share state through global variables (e.g. `DISPLAYMODE`, timers).
+- Each module is independently responsible for a specific function. The overall design ensures a high degree of modularity and extensibility.
+
+
+# Pin Diagram & Allocation
+## Pin Diagram
+Here is the Pin Diagram of ESP8266:
+
+<div align="center">
+    <img src="images/ESP8266-Pins.png" width="600" />
+</div>
+
+## Pin Allocation
+Here is a table of commonly used pin assignments for ESP8266 development boards (such as NodeMCU or similar), including their functions, GPIO numbers, and key considerations:
 
 | Pin No. | GPIO      | Default Function         | Project Usage           | Common Usage          | Notes                                                                                         |
 |---------|-----------|--------------------------|--------------------------|-----------------------|-----------------------------------------------------------------------------------------------|

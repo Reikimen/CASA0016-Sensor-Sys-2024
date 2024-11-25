@@ -93,8 +93,6 @@ void CCS811Thread(){
   }
 }
 
-// SHT30
-
 // PMS7003
 // Non-blocking read of PMS7003 data
 void readPMS7003() {
@@ -176,4 +174,50 @@ void PMS7003Thread(){
   }
 }
 
+// SHT30, there is still delay(20) inside the SHT30Thread 
+// But I don't know why its working well
+void SHT30Thread() {
+  sht30count--;
+  if (sht30count <= 0){
+    sht30count = CONSTSHT30COUNT;
 
+    // Send measurement command
+    Wire.beginTransmission(Addr_SHT30);
+    Wire.write(0x2C);
+    Wire.write(0x06);
+    Wire.endTransmission();
+    delay(20);  // Wait for SHT30 measurement to complete
+
+    // Request for 6 bytes of data
+    Wire.requestFrom(Addr_SHT30, 6);
+
+    // Read 6 bytes of data
+    if (Wire.available() == 6) {
+      sht30_data[0] = Wire.read();
+      sht30_data[1] = Wire.read();
+      sht30_data[2] = Wire.read();  // CRC-checking data, not currently used
+      sht30_data[3] = Wire.read();
+      sht30_data[4] = Wire.read();
+      sht30_data[5] = Wire.read();  // CRC-checking data, not currently used
+    } else {
+      Serial.println("Faild to read the data from SHT30, please check!");
+      return;
+    }
+
+    // Calculate temperature and humidity
+    sht30_cTemp = ((((sht30_data[0] * 256.0) + sht30_data[1]) * 175) / 65535.0) - 45;
+    sht30_fTemp = (sht30_cTemp * 1.8) + 32;
+    sht30_humidity = ((((sht30_data[3] * 256.0) + sht30_data[4]) * 100) / 65535.0);
+
+    // Output data to serial port
+    Serial.print("Humidity: ");
+    Serial.print(sht30_humidity);
+    Serial.println(" %RH");
+    Serial.print("cTemp:");
+    Serial.print(sht30_cTemp);
+    Serial.println(" C");
+    Serial.print("fTemp");
+    Serial.print(sht30_fTemp);
+    Serial.println(" F");
+  }
+}
