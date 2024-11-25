@@ -33,8 +33,10 @@ int PMS7003count = CONSTPMS7003COUNT;
 
 //////////////////////////////////////////////////////// Wi-Fi ///////////////////////////////////////////////////////
 // Wi-Fi info
-const char* ssid = "Reiki_Desktop";
-const char* password = "Reikimen";
+// const char* ssid = "Reiki_Desktop";
+// const char* password = "Reikimen";
+const char* ssid = "CE-Hub-Student";
+const char* password = "casa-ce-gagarin-public-service";
 
 // Create a time zone object
 Timezone londonTZ;
