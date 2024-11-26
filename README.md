@@ -347,7 +347,9 @@ Here is a table of commonly used pin assignments for ESP8266 development boards 
 
 ### Schematic Diagram of the prototype:
 
+<img src="/images/power-supply.jpg" alt="power-supply" style="zoom: 33%;" />
 
+<img src="/images/fan-principle.jpg" alt="fan-principle" style="zoom: 33%;" />
 
 ### Appearance Design of the prototype:
 

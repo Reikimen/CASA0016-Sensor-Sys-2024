@@ -16,7 +16,7 @@ int timecounter = CONSTTIMECOUNT; // WorldTimerThread
 
 /* Actuator */
 const int CONSTLCDCOUNT = 50; 
-const int CONSTFANCOUNT = 10; 
+const int CONSTFANCOUNT = 50; 
 int LCDcount = CONSTLCDCOUNT;
 int Fancount = CONSTFANCOUNT;
 
