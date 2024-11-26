@@ -1,10 +1,20 @@
+---
+typora-root-url: ./
+---
+
 # CASA-0016 Individual Coursework
 
 <img src="images/Yunli.png"  width="64" /> Dankao Chen
 
+In today's increasingly polluted air, fresh air is no longer something to be taken for granted, but has become an important part of the pursuit of a healthy life for all of us. The completion of this project “Pure-Breath” is my personal attempt to combine technological innovation with healthy living (within module CASA-0016 ). I would like to express my special thanks to Prof. Martin for his careful guidance and valuable advice during the development process, which helped me to turn this idea into a real product.
+
+I hope this project will not only improve air quality, but also inspire more people to pay attention to the integration of technology and environment.
+
 # Intro
 
 This project designs and implements an air purification device called “Pure-Breath”. The device is based on the ESP8266 development board and provides real-time interaction, air quality monitoring, temperature and humidity display, fan control and other functions by integrating various sensors and modules. The device aims to improve indoor air quality and help users identify and respond to possible air pollution problems.
+
+
 
 ## P1 Causes of Respiratory Hypersensitiy
 
@@ -24,10 +34,13 @@ This project designs and implements an air purification device called “Pure-Br
 
 However, the work flow or usage of this prototype design was not that detailed.
 
+
+
 ## P4 Product Prototype Showcase
 
-
 《图片》
+
+
 
 
 ### Equipment features
@@ -36,11 +49,24 @@ However, the work flow or usage of this prototype design was not that detailed.
    - Utilizes sensors (e.g. CCS811, MQ135, PMS7003) to monitor the environment in real time
    - including CO₂ concentration, TVOC value, and PM1.0, PM2.5 and PM10 particulate matter concentration.
 2. **Temperature and humidity detection:**
+   
    - Use SHT30 sensor to provide accurate ambient temperature and humidity data.
 3. **Multi-mode fan control:**
-   - Provides three fan modes: auto, on and off to adapt to different air quality needs.
-4. **Time Display:**
+   
+   - Provides three fan modes: auto, on and off to adapt to different needs.
+4. **World Time Display:**
+   
    - Support synchronized display of London time and Beijing time, realized based on NTP protocol.
+5. **Real-Time Interaction:**
+	
+	- Support 50ms interaction with users
+6. **Flexible Power Supply:**
+	
+	- The power can be supplied both External power (e.g. Type-C) and Built-in Li-Ion battery
+7. **Easy User Interaction:**
+   
+   - Equipped with rotary encoder and keys to support users easily and quickly switch modes and adjust settings.
+
 
 ### Technical characteristics
 
@@ -48,11 +74,16 @@ However, the work flow or usage of this prototype design was not that detailed.
    - The project is divided into several modules, including sensors, control logic, Wi-Fi connection, LCD display, etc.
    - Each module is developed independently to ensure that the system is easy to expand and maintain.
 2. **Non-blocking Architecture:**
+   
    - Use thread timer (RITOS method) instead of the traditional blocking delay (delay) to achieve efficient collaboration among modules.
 3. **Double-buffered display:**
+   
    - The use of LCD2004 screen, combined with double buffer technology, reduces I2C communication delay and improves display refresh efficiency (20HZ).
-4. **Flexible User Interaction:**
-   - Equipped with rotary encoder and keys to support users to quickly switch modes and adjust settings.
+4. **High-Efficiency User Interaction:**
+
+	- Integrates hardware (rotary encoder and buttons) and software optimization to ensure a smooth user experience without blocking system operations.
+   
+   	
 
 ### Hardware Composition
 
@@ -67,7 +98,7 @@ However, the work flow or usage of this prototype design was not that detailed.
 
 
 
-# The Usage of the "Pure-Breath"
+# For Users
 
 Please follow the instructions below while using or maintaining the "Pure-Breath":
 
@@ -90,7 +121,7 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
 
 1. **Starting the device** 
    
-- Slide the switch on the back of the unit to the **"ON"** position. 
+	- Slide the switch on the back of the unit to the **"ON"** position. 
   
 2. **Start-up process**
    
@@ -277,6 +308,4 @@ Here is a table of commonly used pin assignments for ESP8266 development boards 
 - Ensure proper GPIO configuration to avoid boot or operational conflicts.
 - Consider power-up states and default behaviors when selecting pins for specific tasks.
 - Use external resistors or components as necessary to adjust voltage levels or signal characteristics.
-
-
 
