@@ -175,13 +175,13 @@ void FanThread(){
     }
     switch (FANMODE){
       case 0:  // Auto
-        digitalWrite(FanPin, LOW); // 风扇打开
+        digitalWrite(FanPin, HIGH); // 风扇打开
         break;
       case 1:  // On
-        digitalWrite(FanPin, LOW); // 风扇打开
+        digitalWrite(FanPin, HIGH); // 风扇打开
         break;
       case 2:  // Off
-        digitalWrite(FanPin, HIGH); // 风扇关闭
+        digitalWrite(FanPin, LOW); // 风扇关闭
         break;
       default:
         break;
