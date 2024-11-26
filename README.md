@@ -1,14 +1,10 @@
----
-typora-root-url: ./
----
-
 # CASA-0016 Individual Coursework
 
 <img src="images/Yunli.png"  width="64" /> Dankao Chen
 
 # Intro
 
-
+This project designs and implements an air purification device called “Pure-Breath”. The device is based on the ESP8266 development board and provides real-time interaction, air quality monitoring, temperature and humidity display, fan control and other functions by integrating various sensors and modules. The device aims to improve indoor air quality and help users identify and respond to possible air pollution problems.
 
 ## P1 Causes of Respiratory Hypersensitiy
 
@@ -31,8 +27,43 @@ However, the work flow or usage of this prototype design was not that detailed.
 ## P4 Product Prototype Showcase
 
 
+《图片》
 
 
+### Equipment features
+
+1. **Air quality monitoring:**
+   - Utilizes sensors (e.g. CCS811, MQ135, PMS7003) to monitor the environment in real time
+   - including CO₂ concentration, TVOC value, and PM1.0, PM2.5 and PM10 particulate matter concentration.
+2. **Temperature and humidity detection:**
+   - Use SHT30 sensor to provide accurate ambient temperature and humidity data.
+3. **Multi-mode fan control:**
+   - Provides three fan modes: auto, on and off to adapt to different air quality needs.
+4. **Time Display:**
+   - Support synchronized display of London time and Beijing time, realized based on NTP protocol.
+
+### Technical characteristics
+
+1. **Modularized design:**
+   - The project is divided into several modules, including sensors, control logic, Wi-Fi connection, LCD display, etc.
+   - Each module is developed independently to ensure that the system is easy to expand and maintain.
+2. **Non-blocking Architecture:**
+   - Use thread timer (RITOS method) instead of the traditional blocking delay (delay) to achieve efficient collaboration among modules.
+3. **Double-buffered display:**
+   - The use of LCD2004 screen, combined with double buffer technology, reduces I2C communication delay and improves display refresh efficiency (20HZ).
+4. **Flexible User Interaction:**
+   - Equipped with rotary encoder and keys to support users to quickly switch modes and adjust settings.
+
+### Hardware Composition
+
+- **Main controller chip:** ESP8266, responsible for overall logic control, Wi-Fi connection and data processing.
+- **Sensors**:
+  - MQ135: Monitor CO₂ concentration.
+  - CCS811: Acquire eCO₂ and eTVOC data.
+  - PMS7003: Detects PM particulate matter concentration.
+  - SHT30: Provides ambient temperature and humidity data.
+- **Display Module:** LCD2004, display sensor data and device status.
+- **Power supply:** Built-in lithium battery with external power support, can be charged via Type-C or round charging port.
 
 
 
@@ -96,11 +127,14 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
 
 ## Replacing the carbon fiber filter
 
-在设备长时间运行后，碳纤维过滤网上会不可避免的积累大量的灰尘，因此定时更换过滤网是极其重要的。更换过滤网请按照以下步骤进行：
+After the equipment runs for a long time, the carbon fiber filter will inevitably accumulate a lot of dust, so it is extremely important to replace the filter regularly. 
+
+**To replace the air filter, Please follow the following steps:**
 
 《图片1》《图片2》《图片3》《图片4》
 
 > **Very important !!! **
+
 > **Switch off the unit before replacing the filter, do not operate with electricity !!!! **
 
 ## Other Precautions
