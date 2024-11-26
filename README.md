@@ -120,26 +120,24 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
 
 > **Hint**: One way to increase the battery life of your device is to increase the capacity of the Li-Ion battery, which gives the user a longer battery life experience. (Just like Apple earns high storage space costs by soldering SSDs, just kidding)
 
-<img src="/images/ON-OFF.jpg" alt="ON-OFF" style="zoom:12.5%;" />
+<img src="/images/ON-OFF.jpg" alt="ON-OFF" style="zoom:10%;" />
 
 
 
 ## Get Start with "Pure-Breath"
+
+![usage](/images/usage.png)
 
 1. **Starting the device** 
    
 	- Slide the switch on the back of the unit to the **"ON"** position. 
   
 2. **Start-up process**
-   
    - The LCD screen will briefly display a blue screen for about 10 seconds. 
-   
+	
    - During the blue screen, the device connects to Wi-Fi (**CE-Hub-Students**) and synchronizes with world time. 
-
-  - Upon successful connection, the LCD will display a welcome screen and prompt the user to rotate or press the rotary encoder to turn it on. 
-
-	<img src="/images/hello.jpg" alt="hello" style="zoom:10%;" />
-
+	
+	- Upon successful connection, the LCD will display a welcome screen and prompt the user to rotate or press the rotary encoder to turn it on. 
 
 3. **Main interface and mode selection** 
    Upon startup, you will enter the main user interaction interface with a total of **5 modes** to choose from: 
@@ -157,9 +155,6 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
 	- By selecting the **"TIME"** mode and pressing the encoder, the LCD will display London time and Beijing time. 
 	- To exit the current mode, press the green square button to return to the main screen. 
 	
-	<img src="/images/time.jpg" alt="time" style="zoom:10%;" />
-
-
 
 4. **Special operations in FAN mode** 
    **"FAN ’** mode contains **3 sub-modes**: 
@@ -172,8 +167,6 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
    
    - Rotate the encoder to point the pointer to the desired sub-mode, then press the green square button to return to the main screen without additional confirmation. 
    
-	<img src="/images/fan.jpg" alt="fan" style="zoom:10%;" />
-
 
 
 ## Replacing the carbon fiber filter
