@@ -175,13 +175,18 @@ void FanThread(){
     }
     switch (FANMODE){
       case 0:  // Auto
-        digitalWrite(FanPin, HIGH); // 风扇打开
+        if (pmsData.pm1_0 >=10 || pmsData.pm2_5 >= 10 || pmsData.pm10_0 >= 10 || etvoc >= 200){
+          digitalWrite(FanPin, HIGH); // FAN ON
+        }
+        else{
+          digitalWrite(FanPin, LOW); // FAN OFF
+        }
         break;
       case 1:  // On
-        digitalWrite(FanPin, HIGH); // 风扇打开
+        digitalWrite(FanPin, HIGH); // FAN ON
         break;
       case 2:  // Off
-        digitalWrite(FanPin, LOW); // 风扇关闭
+        digitalWrite(FanPin, LOW); // FAN OFF
         break;
       default:
         break;

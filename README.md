@@ -6,9 +6,11 @@ typora-root-url: ./
 
 <img src="images/Yunli.png"  width="64" /> Dankao Chen
 
-In today's increasingly polluted air, fresh air is no longer something to be taken for granted, but has become an important part of the pursuit of a healthy life for all of us. The completion of this project “Pure-Breath” is my personal attempt to combine technological innovation with healthy living (within module CASA-0016 ). I would like to express my special thanks to Prof. Martin for his careful guidance and valuable advice during the development process, which helped me to turn this idea into a real product.
+In today's world of increasing air pollution, fresh air is no longer something to be taken for granted, but an important part of our quest for a healthy life. The completion of this project “Pure-Breath” is my personal attempt to combine technological innovation with healthy living (within module CASA-0016 ). I would like to express my special thanks to Prof. Martin for his careful guidance and valuable advice during the development process, which helped me to turn this idea into a real product.
 
-I hope this project will not only improve air quality, but also inspire more people to pay attention to the integration of technology and environment.
+I hope this project will not only improve the indoor air quality and living experience, but also inspire more people to become interested in the integration of technology and the environment! https://github.com/Reikimen/CASA0016-Sensor-Sys-2024
+
+
 
 # Intro
 
@@ -38,14 +40,15 @@ However, the work flow or usage of this prototype design was not that detailed.
 
 ## P4 Product Prototype Showcase
 
-《图片》
+<img src="/images/whole-product.jpg" alt="whole-product" style="zoom:13.3%;" />
 
-
+<video src="/images/test.mp4" width="760" controls></video>
 
 
 ### Equipment features
 
 1. **Air quality monitoring:**
+   
    - Utilizes sensors (e.g. CCS811, MQ135, PMS7003) to monitor the environment in real time
    - including CO₂ concentration, TVOC value, and PM1.0, PM2.5 and PM10 particulate matter concentration.
 2. **Temperature and humidity detection:**
@@ -66,6 +69,8 @@ However, the work flow or usage of this prototype design was not that detailed.
 7. **Easy User Interaction:**
    
    - Equipped with rotary encoder and keys to support users easily and quickly switch modes and adjust settings.
+   
+   	
 
 
 ### Technical characteristics
@@ -115,7 +120,9 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
 
 > **Hint**: One way to increase the battery life of your device is to increase the capacity of the Li-Ion battery, which gives the user a longer battery life experience. (Just like Apple earns high storage space costs by soldering SSDs, just kidding)
 
-《图片》
+<img src="/images/ON-OFF.jpg" alt="ON-OFF" style="zoom:12.5%;" />
+
+
 
 ## Get Start with "Pure-Breath"
 
@@ -126,24 +133,33 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
 2. **Start-up process**
    
    - The LCD screen will briefly display a blue screen for about 10 seconds. 
+   
    - During the blue screen, the device connects to Wi-Fi (**CE-Hub-Students**) and synchronizes with world time. 
-   - Upon successful connection, the LCD will display a welcome screen and prompt the user to rotate or press the rotary encoder to turn it on. 
-  
+
+  - Upon successful connection, the LCD will display a welcome screen and prompt the user to rotate or press the rotary encoder to turn it on. 
+
+	<img src="/images/hello.jpg" alt="hello" style="zoom:10%;" />
+
+
 3. **Main interface and mode selection** 
    Upon startup, you will enter the main user interaction interface with a total of **5 modes** to choose from: 
    - **TIME (London time and Beijing time)** 
    - **T&RH (Temperature and Humidity)**
    - **PM (PM1.0, PM2.5 & PM10)** 
    - **AQI (Air Quality Index)**
-   - **FAN (Fan Mode, Auto, On and Off)** 
-
+- **FAN (Fan Mode, Auto, On and Off)** 
+  
    **Selection Mode Method**: 
    - Move the pointer to the desired mode by rotating the encoder. 
    - Press the encoder to confirm the selection. 
    
-   **Example**: 
+	**Example**: 
 	- By selecting the **"TIME"** mode and pressing the encoder, the LCD will display London time and Beijing time. 
 	- To exit the current mode, press the green square button to return to the main screen. 
+	
+	<img src="/images/time.jpg" alt="time" style="zoom:10%;" />
+
+
 
 4. **Special operations in FAN mode** 
    **"FAN ’** mode contains **3 sub-modes**: 
@@ -155,6 +171,10 @@ Please follow the instructions below while using or maintaining the "Pure-Breath
    **Selection of sub-mode method**: 
    
    - Rotate the encoder to point the pointer to the desired sub-mode, then press the green square button to return to the main screen without additional confirmation. 
+   
+	<img src="/images/fan.jpg" alt="fan" style="zoom:10%;" />
+
+
 
 ## Replacing the carbon fiber filter
 
@@ -162,19 +182,24 @@ After the equipment runs for a long time, the carbon fiber filter will inevitabl
 
 **To replace the air filter, Please follow the following steps:**
 
-《图片1》《图片2》《图片3》《图片4》
+<img src="/images/Change-filter.png" alt="Change-filter" style="zoom:50%;" />
 
 > **Very important !!! **
 
 > **Switch off the unit before replacing the filter, do not operate with electricity !!!! **
 
+
+
 ## Other Precautions
+
 In a clean environment (e.g. laboratory) the PM sensor may show ‘0’, this is normal as there is less particulate matter in the environment. To test the sensor, try the following: 
 
 - Tear a paper towel near the air intake.
 - Sprinkle some dust around the unit.
 
 This simulates particulate matter and makes it easier to see how the PM sensor reading changes.
+
+
 
 # For Developers
 
@@ -277,6 +302,16 @@ Here is an overview of what each file in the main program does:
 
 
 
+## Version Control
+
+All the version control is based on the GitHub, new branch (or say version) are created after some significant features were add to the Project.
+
+Here is part of the Commits Histories for one of the history branch: **v0.6**
+
+![GithubCommit](/images/GithubCommit.png)
+
+
+
 ## Pin Diagram & Allocation
 
 ### Pin Diagram
@@ -285,6 +320,8 @@ Here is the Pin Diagram of ESP8266:
 <div align="center">
     <img src="images/ESP8266-Pins.png" width="600" />
 </div>
+
+
 ### Pin Allocation
 
 Here is a table of commonly used pin assignments for ESP8266 development boards (such as NodeMCU or similar), including their functions, GPIO numbers, and key considerations:
@@ -306,6 +343,25 @@ Here is a table of commonly used pin assignments for ESP8266 development boards 
 
 **Notes:**
 - Ensure proper GPIO configuration to avoid boot or operational conflicts.
+
 - Consider power-up states and default behaviors when selecting pins for specific tasks.
+
 - Use external resistors or components as necessary to adjust voltage levels or signal characteristics.
 
+	
+
+## Circuit and Modeling
+
+### Schematic Diagram of the prototype:
+
+
+
+### Appearance Design of the prototype:
+
+<img src="/images/Sanshitu.png" alt="Sanshitu" style="zoom:75%;" />
+
+<img src="/images/Fusion-view.png" alt="Fusion-view" style="zoom:75%;" />
+
+### Internal Structure of the prototype:
+
+<img src="/images/Structure.png" alt="Structure" style="zoom:120%;" />
