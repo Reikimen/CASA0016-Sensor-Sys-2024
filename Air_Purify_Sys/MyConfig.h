@@ -36,10 +36,7 @@ int sht30count = CONSTSHT30COUNT;
 
 //////////////////////////////////////////////////////// Wi-Fi ///////////////////////////////////////////////////////
 // Wi-Fi info
-// const char* ssid = "Reiki_Desktop";
-// const char* password = "Reikimen";
-const char* ssid = "CE-Hub-Student";
-const char* password = "casa-ce-gagarin-public-service";
+// inside secrets.h
 
 // Create a time zone object
 Timezone londonTZ;

@@ -1,4 +1,5 @@
 // v0.6
+#include "secret.h"
 #include "MyConfig.h"
 #include "MyWifi.h"
 #include "MyActuator.h"
